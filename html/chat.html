@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat - N'TOX!C</title>
+  <link rel="stylesheet" href="../css/chat.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script>
+    if (sessionStorage.getItem("loggedIn") !== "true") {
+      window.location.href = "login.html";
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">N'<span>🧠</span>TOX!C.</div>
+      <nav class="nav">
+        <a href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+        <a href="chat.html" class="active"><i class="fas fa-comments"></i> Chat</a>
+        <a href="space.html"><i class="fas fa-rocket"></i> Space</a>
+        <a href="#"><i class="fas fa-history"></i> History</a>
+        <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+        <a href="#"><i class="fas fa-cog"></i> Setting</a>
+        <a href="#"><i class="fas fa-ellipsis-h"></i> Other</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="topbar">
+        <input type="text" placeholder="Cari chat..." class="search" />
+        <div class="top-icons">
+          <span id="userGreeting" style="font-weight: bold;"></span>
+        </div>
+      </header>
+
+      <!-- Chat Layout -->
+      <div class="chat-body">
+        <!-- Chat List -->
+        <div class="chat-list">
+          <button class="new-chat">+ New Chat</button>
+          <div class="chat-item active">Dr. Farras Mas’ud</div>
+        </div>
+
+        <!-- Chat Box -->
+        <div class="chat-box">
+          <div class="chat-title">
+            <img src="../asets/ijam.jpg" alt="Avatar" class="chat-avatar" />
+            <h4>Dr. Farras Mas’ud</h4>
+          </div>
+
+          <div class="chat-message" id="chatMessage">
+            <div class="bubble">
+              <p>
+                Halo, selamat datang di ruang curhat ini.<br />
+                Saya Dr. Farras, psikolog yang siap mendengarkan dan menemani kamu di sini.
+                Cerita kamu aman, nggak akan dihakimi dan dijaga kerahasiaannya.<br /><br />
+                Nggak perlu ragu. Kamu bisa mulai dari hal yang kamu rasa paling ingin diceritakan dulu – 
+                boleh tentang perasaan, pikiran, atau kejadian yang bikin kamu ngerasa nggak nyaman akhir-akhir ini.<br /><br />
+                Aku di sini untuk bantu kamu pelan-pelan, satu langkah dalam satu waktu. ✨<br />
+                Gimana kabarmu hari ini?
+              </p>
+            </div>
+          </div>
+
+          <div class="chat-input-area">
+            <input type="text" id="userInput" placeholder="Reply Message......" />
+            <div class="chat-icons">
+              <i class="fas fa-microphone"></i>
+              <i class="fas fa-paper-plane" id="sendBtn"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Menampilkan username
+    document.getElementById("userGreeting").textContent = `Hello, ${sessionStorage.getItem("username") || 'User'}`;
+
+    // Elemen penting
+    const inputField = document.getElementById("userInput");
+    const sendBtn = document.getElementById("sendBtn");
+    const chatBox = document.getElementById("chatMessage");
+
+    // Fungsi menambahkan bubble dari user
+    function addUserBubble(message) {
+      const bubble = document.createElement("div");
+      bubble.classList.add("bubble", "user-bubble");
+      bubble.innerHTML = `<p>${message}</p>`;
+      chatBox.appendChild(bubble);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // Kirim pesan saat enter
+    inputField.addEventListener("keypress", function (e) {
+      if (e.key === "Enter" && inputField.value.trim() !== "") {
+        addUserBubble(inputField.value.trim());
+        inputField.value = "";
+      }
+    });
+
+    // Kirim pesan saat klik ikon kirim
+    sendBtn.addEventListener("click", function () {
+      if (inputField.value.trim() !== "") {
+        addUserBubble(inputField.value.trim());
+        inputField.value = "";
+      }
+    });
+  </script>
+</body>
+</html>

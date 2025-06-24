@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard N'TOX!C</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script>
+    if (sessionStorage.getItem("loggedIn") !== "true") {
+      window.location.href = "index.html";
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="logo">N'<span>🧠</span>TOX!C.</div>
+      <nav class="nav">
+        <a href="dashboard.html" class="active"><i class="fas fa-home"></i> Home</a>
+        <a href="chat.html"><i class="fas fa-comments"></i> Chat</a>
+        <a href="space.html"><i class="fas fa-rocket"></i> Space</a>
+        <a href="#"><i class="fas fa-history"></i> History</a>
+        <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+        <a href="#"><i class="fas fa-cog"></i> Setting</a>
+        <a href="#"><i class="fas fa-ellipsis-h"></i> Other</a>
+      </nav>
+    </aside>
+    <main class="main-content">
+      <header class="topbar">
+        <input type="text" placeholder="Cari..." class="search" />
+        <div class="top-icons">
+          <span id="userGreeting" style="font-weight: bold;"></span>
+          <button onclick="logout()" class="btn btn-black btn-logout-mini">Logout</button>
+        </div>
+      </header>
+
+      <section class="post-box">
+        <div class="post-input">
+          <img src="/asets/ijam.jpg" alt="Profile" class="avatar" />
+          <textarea id="postContent" placeholder="Dengan Kamu cerita..."></textarea>
+        </div>
+        <!-- Preview Gambar -->
+        <div id="imagePreviewContainer" style="margin-top:10px; display:none;">
+          <img id="imagePreview" src="" alt="Preview" style="max-width: 200px; border-radius: 10px; border: 1px solid #ccc;">
+        </div>
+        <div class="post-actions">
+          <div class="icons">
+            <i class="fas fa-sliders-h"></i>
+            <i class="fas fa-image" id="imageIcon"></i>
+            <i class="fas fa-list"></i>
+            <input type="file" id="imageInput" accept="image/*" style="display:none">
+          </div>
+          <button id="postBtn">Post</button>
+        </div>
+      </section>
+
+      <section class="feed" id="feed">
+        <!-- Post 1 -->
+        <div class="post">
+          <div class="user-info">
+            <img src="/asets/ijam.jpg" class="avatar-mini" />
+            <div class="user-meta">
+              <strong>Ana@Ntox</strong><span>2 jam lalu</span>
+            </div>
+          </div>
+          <p>Hari ini rasanya berat banget... tapi aku bangga karena tetap bisa bertahan 🥺</p>
+          <div class="post-footer">
+            <i class="far fa-heart like-btn"></i>
+            <i class="fas fa-comment comment-btn"></i>
+            <i class="fas fa-share"></i>
+          </div>
+          <div class="comment-section" style="display: none;">
+            <input type="text" class="comment-input" placeholder="Tulis komentar..." />
+            <div class="comments-list"></div>
+          </div>
+        </div>
+
+        <!-- Post 2 -->
+        <div class="post">
+          <div class="user-info">
+            <img src="/asets/ijam.jpg" class="avatar-mini" />
+            <div class="user-meta">
+              <strong>Rio_988@Ntox</strong><span>5 jam lalu</span>
+            </div>
+          </div>
+          <p>Sesuatu yang sederhana seperti didengar itu bisa sangat berarti loh. Jadi, dengarkanlah orang lain hari ini ❤️</p>
+          <div class="post-footer">
+            <i class="far fa-heart like-btn"></i>
+            <i class="fas fa-comment comment-btn"></i>
+            <i class="fas fa-share"></i>
+          </div>
+          <div class="comment-section" style="display: none;">
+            <input type="text" class="comment-input" placeholder="Tulis komentar..." />
+            <div class="comments-list"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const postBtn = document.getElementById('postBtn');
+    const postContent = document.getElementById('postContent');
+    const feed = document.getElementById('feed');
+    const imageIcon = document.getElementById('imageIcon');
+    const imageInput = document.getElementById('imageInput');
+    const imagePreview = document.getElementById('imagePreview');
+    const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+
+    let selectedImageBase64 = null;
+
+    imageIcon.addEventListener('click', () => imageInput.click());
+
+    imageInput.addEventListener('change', () => {
+      const file = imageInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          selectedImageBase64 = e.target.result;
+          imagePreview.src = selectedImageBase64;
+          imagePreviewContainer.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    postBtn.addEventListener('click', () => {
+      const content = postContent.value.trim();
+      if (!content && !selectedImageBase64) return;
+      const username = sessionStorage.getItem("username") || "Anonim";
+
+      const post = document.createElement('div');
+      post.className = 'post';
+
+      const imageHTML = selectedImageBase64 ? `<img src="${selectedImageBase64}" class="post-image" style="max-width: 300px; margin-top: 10px; border-radius: 10px;">` : '';
+
+      post.innerHTML = `
+        <div class="user-info">
+          <img src="/asets/ijam.jpg" class="avatar-mini" />
+          <div class="user-meta">
+            <strong>${username}@Ntox</strong><span>baru saja</span>
+          </div>
+        </div>
+        <p>${content}</p>
+        ${imageHTML}
+        <div class="post-footer">
+          <i class="far fa-heart like-btn"></i>
+          <i class="fas fa-comment comment-btn"></i>
+          <i class="fas fa-share"></i>
+        </div>
+        <div class="comment-section" style="display: none;">
+          <input type="text" class="comment-input" placeholder="Tulis komentar..."/>
+          <div class="comments-list"></div>
+        </div>`;
+
+      feed.prepend(post);
+      postContent.value = '';
+      selectedImageBase64 = null;
+      imageInput.value = '';
+      imagePreviewContainer.style.display = 'none';
+      imagePreview.src = '';
+      setupPostListeners(post);
+    });
+
+    function setupPostListeners(post) {
+      const likeBtn = post.querySelector('.like-btn');
+      const commentBtn = post.querySelector('.comment-btn');
+      const commentSection = post.querySelector('.comment-section');
+      const commentInput = post.querySelector('.comment-input');
+      const commentsList = post.querySelector('.comments-list');
+
+      likeBtn.addEventListener('click', () => {
+        likeBtn.classList.toggle('liked');
+        likeBtn.classList.toggle('fas');
+        likeBtn.classList.toggle('far');
+      });
+
+      commentBtn.addEventListener('click', () => {
+        commentSection.style.display = commentSection.style.display === 'none' ? 'block' : 'none';
+      });
+
+      commentInput.addEventListener('keypress', e => {
+        if (e.key === 'Enter' && commentInput.value.trim()) {
+          const comment = document.createElement('div');
+          comment.className = 'comment';
+          comment.textContent = commentInput.value.trim();
+          commentsList.appendChild(comment);
+          commentInput.value = '';
+        }
+      });
+    }
+
+    document.getElementById("userGreeting").textContent = `Hello, ${sessionStorage.getItem("username") || 'User'}`;
+
+    function logout() {
+      sessionStorage.clear();
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>

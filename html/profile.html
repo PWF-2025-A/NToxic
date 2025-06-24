@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profil - N'TOX!C</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/profile.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script>
+    if (sessionStorage.getItem("loggedIn") !== "true") {
+      window.location.href = "index.html";
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="logo">N'<span>🧠</span>TOX!C.</div>
+      <nav class="nav">
+        <a href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+        <a href="chat.html"><i class="fas fa-comments"></i> Chat</a>
+        <a href="space.html"><i class="fas fa-rocket"></i> Space</a>
+        <a href="#"><i class="fas fa-history"></i> History</a>
+        <a href="profile.html" class="active"><i class="fas fa-user"></i> Profile</a>
+        <a href="#"><i class="fas fa-cog"></i> Setting</a>
+        <a href="#"><i class="fas fa-ellipsis-h"></i> Other</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="profile-cover">
+        <img src="/asets/cover.jpg" alt="Cover" class="cover-image" />
+        <img src="/asets/ijam.jpg" alt="Foto Profil" class="profile-picture" />
+      </div>
+
+      <div class="profile-info">
+        <h2 id="displayName">User</h2>
+        <p class="profile-username" id="displayUsername">@username</p>
+        <p class="profile-bio" id="displayBio">Bio pengguna...</p>
+        <button class="edit-btn" onclick="toggleEdit()">Edit Profil</button>
+      </div>
+
+      <!-- Form Edit Modern -->
+      <div class="edit-form" id="editForm" style="display: none;">
+        <h3>Edit Profil</h3>
+        <div class="form-group">
+          <label for="editName">Nama</label>
+          <input type="text" id="editName" placeholder="Nama lengkap">
+        </div>
+        <div class="form-group">
+          <label for="editUsername">Username</label>
+          <input type="text" id="editUsername" placeholder="Username">
+        </div>
+        <div class="form-group">
+          <label for="editBio">Bio</label>
+          <textarea id="editBio" placeholder="Ceritakan tentang dirimu..."></textarea>
+        </div>
+        <div class="form-actions">
+          <button class="save-btn" onclick="saveProfile()">💾 Simpan</button>
+          <button class="cancel-btn" onclick="toggleEdit()">❌ Batal</button>
+        </div>
+      </div>
+
+      <div class="profile-tabs">
+        <a href="#" class="tab-btn active" data-tab="posts">Post</a>
+        <a href="#" class="tab-btn" data-tab="about">Tentang</a>
+        <a href="#" class="tab-btn" data-tab="friends">Teman</a>
+        <a href="#" class="tab-btn" data-tab="photos">Foto</a>
+      </div>
+
+      <section id="posts" class="tab-content">
+        <p>Belum ada postingan.</p>
+      </section>
+
+      <section id="about" class="tab-content" style="display:none">
+        <h3>Tentang Saya</h3>
+        <ul class="about-list">
+          <li><strong>Email:</strong> <span id="emailDisplay">user@example.com</span></li>
+          <li><strong>Tanggal Lahir:</strong> 12 Januari 2001</li>
+          <li><strong>Lokasi:</strong> Jakarta</li>
+          <li><strong>Status:</strong> Aktif</li>
+        </ul>
+      </section>
+
+      <section id="friends" class="tab-content" style="display:none">
+        <p>Belum ada teman yang ditampilkan.</p>
+      </section>
+
+      <section id="photos" class="tab-content" style="display:none">
+        <p>Belum ada foto yang diunggah.</p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const displayName = document.getElementById("displayName");
+    const displayUsername = document.getElementById("displayUsername");
+    const displayBio = document.getElementById("displayBio");
+    const emailDisplay = document.getElementById("emailDisplay");
+
+    function loadProfile() {
+      const name = sessionStorage.getItem("username") || "User";
+      const username = sessionStorage.getItem("username") || "username";
+      const email = sessionStorage.getItem("email") || "user@example.com";
+      const bio = sessionStorage.getItem("bio") || "Hidup sederhana, senyum setiap hari 😊";
+
+      displayName.textContent = name;
+      displayUsername.textContent = "@" + username;
+      displayBio.textContent = bio;
+      emailDisplay.textContent = email;
+    }
+
+    function toggleEdit() {
+      const form = document.getElementById("editForm");
+      const visible = form.style.display === "block";
+      form.style.display = visible ? "none" : "block";
+      document.getElementById("editName").value = displayName.textContent;
+      document.getElementById("editUsername").value = displayUsername.textContent.replace("@", "");
+      document.getElementById("editBio").value = displayBio.textContent;
+    }
+
+    function saveProfile() {
+      const name = document.getElementById("editName").value;
+      const username = document.getElementById("editUsername").value;
+      const bio = document.getElementById("editBio").value;
+
+      sessionStorage.setItem("username", name);
+      sessionStorage.setItem("bio", bio);
+      loadProfile();
+      toggleEdit();
+    }
+
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", function(e) {
+        e.preventDefault();
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        this.classList.add("active");
+        const tab = this.dataset.tab;
+
+        document.querySelectorAll(".tab-content").forEach(c => c.style.display = "none");
+        document.getElementById(tab).style.display = "block";
+      });
+    });
+
+    loadProfile();
+  </script>
+</body>
+</html>
