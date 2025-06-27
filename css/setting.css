@@ -1,0 +1,165 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f2f4f7;
+  margin: 0;
+  color: #333;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 200px;
+  background: #fff;
+  padding: 20px 0;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar .logo {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.sidebar .nav a {
+  display: block;
+  padding: 10px 20px;
+  color: #000;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.sidebar .nav a:hover {
+  background: #f0f0f0;
+}
+
+.setting-main {
+  display: flex;
+  flex: 1;
+  padding: 20px;
+}
+
+.setting-sidebar {
+  width: 220px;
+  padding-right: 20px;
+}
+
+.setting-sidebar h2 {
+  font-size: 18px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #1da1f2;
+}
+
+#settingMenu {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+#settingMenu li {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#settingMenu li.active,
+#settingMenu li:hover {
+  background-color: #1da1f2;
+  color: white;
+  font-weight: 500;
+}
+
+.setting-content {
+  flex: 1;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.setting-tab {
+  display: none;
+}
+
+.setting-tab.active {
+  display: block;
+}
+
+h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #1da1f2;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notifications-group,
+.privacy-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.toggle-item {
+  background: #f8f8f8;
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toggle-item input {
+  accent-color: #1da1f2;
+  width: 20px;
+  height: 20px;
+}
+
+.save-btn {
+  margin-top: 24px;
+  background-color: #1da1f2;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.save-btn:hover {
+  background-color: #0c8bd6;
+}

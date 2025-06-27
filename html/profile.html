@@ -23,43 +23,21 @@
         <a href="space.html"><i class="fas fa-rocket"></i> Space</a>
         <a href="#"><i class="fas fa-history"></i> History</a>
         <a href="profile.html" class="active"><i class="fas fa-user"></i> Profile</a>
-        <a href="#"><i class="fas fa-cog"></i> Setting</a>
-        <a href="#"><i class="fas fa-ellipsis-h"></i> Other</a>
+        <a href="setting.html"><i class="fas fa-cog"></i> Setting</a>
       </nav>
     </aside>
 
     <main class="main-content">
       <div class="profile-cover">
-        <img src="/asets/cover.jpg" alt="Cover" class="cover-image" />
+        <img src="/asets/people.jpg" alt="Cover" class="cover-image" />
         <img src="/asets/ijam.jpg" alt="Foto Profil" class="profile-picture" />
       </div>
 
       <div class="profile-info">
         <h2 id="displayName">User</h2>
-        <p class="profile-username" id="displayUsername">@username</p>
+        <p class="profile-username" id="displayUsername" style="display: none;">@username</p>
         <p class="profile-bio" id="displayBio">Bio pengguna...</p>
-        <button class="edit-btn" onclick="toggleEdit()">Edit Profil</button>
-      </div>
-
-      <!-- Form Edit Modern -->
-      <div class="edit-form" id="editForm" style="display: none;">
-        <h3>Edit Profil</h3>
-        <div class="form-group">
-          <label for="editName">Nama</label>
-          <input type="text" id="editName" placeholder="Nama lengkap">
-        </div>
-        <div class="form-group">
-          <label for="editUsername">Username</label>
-          <input type="text" id="editUsername" placeholder="Username">
-        </div>
-        <div class="form-group">
-          <label for="editBio">Bio</label>
-          <textarea id="editBio" placeholder="Ceritakan tentang dirimu..."></textarea>
-        </div>
-        <div class="form-actions">
-          <button class="save-btn" onclick="saveProfile()">💾 Simpan</button>
-          <button class="cancel-btn" onclick="toggleEdit()">❌ Batal</button>
-        </div>
+        <a href="edit-profile.html" class="edit-btn">Edit Profil</a>
       </div>
 
       <div class="profile-tabs">
@@ -101,12 +79,11 @@
 
     function loadProfile() {
       const name = sessionStorage.getItem("username") || "User";
-      const username = sessionStorage.getItem("username") || "username";
       const email = sessionStorage.getItem("email") || "user@example.com";
       const bio = sessionStorage.getItem("bio") || "Hidup sederhana, senyum setiap hari 😊";
 
       displayName.textContent = name;
-      displayUsername.textContent = "@" + username;
+      displayUsername.textContent = "@" + name;
       displayBio.textContent = bio;
       emailDisplay.textContent = email;
     }

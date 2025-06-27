@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Setting - N'TOX!C</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/setting.css" />
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="logo">N'<span>🧠</span>TOX!C</div>
+      <nav class="nav">
+        <a href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+        <a href="chat.html"><i class="fas fa-comments"></i> Chat</a>
+        <a href="space.html"><i class="fas fa-rocket"></i> Space</a>
+        <a href="#"><i class="fas fa-history"></i> History</a>
+        <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+        <a href="setting.html" class="active"><i class="fas fa-cog"></i> Setting</a>
+      </nav>
+    </aside>
+
+    <main class="setting-main">
+      <div class="setting-sidebar">
+        <h2>⚙️ Pengaturan</h2>
+        <ul id="settingMenu">
+          <li class="active" data-tab="privacy">Privasi</li>
+          <li data-tab="security">Keamanan</li>
+          <li data-tab="notifications">Notifikasi</li>
+          <li data-tab="language">Bahasa</li>
+        </ul>
+      </div>
+
+      <div class="setting-content">
+        <div class="setting-tab active" id="tab-privacy">
+          <h3>Privasi</h3>
+          <div class="privacy-group">
+            <div class="toggle-item"><label for="hideEmail">Sembunyikan email dari publik</label><input type="checkbox" id="hideEmail"></div>
+            <div class="toggle-item"><label for="hideBirthday">Sembunyikan tanggal lahir</label><input type="checkbox" id="hideBirthday"></div>
+            <div class="toggle-item"><label for="allowDM">Izinkan pesan dari siapa saja</label><input type="checkbox" id="allowDM"></div>
+            <div class="toggle-item"><label for="limitComments">Batasi komentar hanya dari teman</label><input type="checkbox" id="limitComments"></div>
+            <div class="toggle-item"><label for="hideStatus">Sembunyikan status online</label><input type="checkbox" id="hideStatus"></div>
+            <div class="toggle-item"><label for="hideLastSeen">Jangan tampilkan aktivitas terakhir</label><input type="checkbox" id="hideLastSeen"></div>
+          </div>
+        </div>
+
+        <div class="setting-tab" id="tab-security">
+          <h3>Keamanan</h3>
+          <div class="form-group">
+            <label>Password Saat Ini</label>
+            <input type="password" placeholder="********">
+          </div>
+          <div class="form-group">
+            <label>Password Baru</label>
+            <input type="password" placeholder="Masukkan password baru">
+          </div>
+          <div class="form-group checkbox-item">
+            <input type="checkbox" id="twoFA">
+            <label for="twoFA">Aktifkan Verifikasi Dua Langkah</label>
+          </div>
+        </div>
+
+        <div class="setting-tab" id="tab-notifications">
+          <h3>Notifikasi</h3>
+          <div class="notifications-group">
+            <div class="toggle-item"><label for="notif-activity">Email tentang aktivitas akun</label><input type="checkbox" id="notif-activity"></div>
+            <div class="toggle-item"><label for="notif-promo">Email promosi dan penawaran</label><input type="checkbox" id="notif-promo"></div>
+            <div class="toggle-item"><label for="notif-push">Push notifikasi di perangkat</label><input type="checkbox" id="notif-push"></div>
+          </div>
+        </div>
+
+        <div class="setting-tab" id="tab-language">
+          <h3>Bahasa</h3>
+          <div class="form-group">
+            <label for="langSelect">Pilih Bahasa</label>
+            <select id="langSelect">
+              <option value="id">Bahasa Indonesia</option>
+              <option value="en">English</option>
+              <option value="jp">日本語</option>
+              <option value="ar">العربية</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="save-btn" onclick="saveSettings()">📀 Simpan Perubahan</button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const set = (k, v) => localStorage.setItem(k, v);
+    const get = (k) => localStorage.getItem(k);
+    const getBool = (k) => get(k) === "true";
+
+    function saveSettings() {
+      set("hideEmail", document.getElementById("hideEmail").checked);
+      set("hideBirthday", document.getElementById("hideBirthday").checked);
+      set("allowDM", document.getElementById("allowDM").checked);
+      set("limitComments", document.getElementById("limitComments").checked);
+      set("hideStatus", document.getElementById("hideStatus").checked);
+      set("hideLastSeen", document.getElementById("hideLastSeen").checked);
+      set("twoFA", document.getElementById("twoFA").checked);
+      set("notifActivity", document.getElementById("notif-activity").checked);
+      set("notifPromo", document.getElementById("notif-promo").checked);
+      set("notifPush", document.getElementById("notif-push").checked);
+      set("language", document.getElementById("langSelect").value);
+      alert("✅ Pengaturan berhasil disimpan!");
+    }
+
+    function loadSettings() {
+      document.getElementById("hideEmail").checked = getBool("hideEmail");
+      document.getElementById("hideBirthday").checked = getBool("hideBirthday");
+      document.getElementById("allowDM").checked = getBool("allowDM");
+      document.getElementById("limitComments").checked = getBool("limitComments");
+      document.getElementById("hideStatus").checked = getBool("hideStatus");
+      document.getElementById("hideLastSeen").checked = getBool("hideLastSeen");
+      document.getElementById("twoFA").checked = getBool("twoFA");
+      document.getElementById("notif-activity").checked = getBool("notifActivity");
+      document.getElementById("notif-promo").checked = getBool("notifPromo");
+      document.getElementById("notif-push").checked = getBool("notifPush");
+      document.getElementById("langSelect").value = get("language") || "id";
+    }
+
+    document.querySelectorAll("#settingMenu li").forEach(item => {
+      item.addEventListener("click", () => {
+        document.querySelectorAll("#settingMenu li").forEach(i => i.classList.remove("active"));
+        item.classList.add("active");
+        const tabId = "tab-" + item.dataset.tab;
+        document.querySelectorAll(".setting-tab").forEach(tab => tab.classList.remove("active"));
+        document.getElementById(tabId).classList.add("active");
+      });
+    });
+
+    window.onload = loadSettings;
+  </script>
+</body>
+</html>

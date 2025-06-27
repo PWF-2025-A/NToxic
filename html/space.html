@@ -23,8 +23,7 @@
         <a href="space.html" class="active"><i class="fas fa-rocket"></i> Space</a>
         <a href="#"><i class="fas fa-history"></i> History</a>
         <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
-        <a href="#"><i class="fas fa-cog"></i> Setting</a>
-        <a href="#"><i class="fas fa-ellipsis-h"></i> Other</a>
+        <a href="setting.html"><i class="fas fa-cog"></i> Setting</a>
       </nav>
     </aside>
 
@@ -43,7 +42,7 @@
         </div>
 
         <div class="community-card">
-          <div class="community-title">Anti Social Social Club</div>
+          <div class="community-title">Kata Bijak</div>
           <div class="community-members">1.200 member</div>
           <div class="join-bar">Join</div>
         </div>
@@ -64,24 +63,34 @@
   </div>
 
   <script>
-    // Set username
-    document.getElementById("userGreeting").textContent = `Hello, ${sessionStorage.getItem("username") || 'User'}`;
+  // Set username
+  document.getElementById("userGreeting").textContent = `Hello, ${sessionStorage.getItem("username") || 'User'}`;
 
-    // Logout
-    function logout() {
-      sessionStorage.clear();
-      window.location.href = "index.html";
-    }
+  // Logout
+  function logout() {
+    sessionStorage.clear();
+    window.location.href = "index.html";
+  }
 
-    // Ubah tombol Join jadi View setelah diklik
-    document.querySelectorAll('.join-bar').forEach(btn => {
-      btn.addEventListener('click', function () {
-        if (this.textContent.trim().toLowerCase() === 'join') {
-          this.textContent = 'View';
-          this.classList.add('joined');
+  // Ubah Join jadi View dan arahkan ke halaman kata bijak jika diklik ulang
+  document.querySelectorAll('.community-card').forEach(card => {
+    const title = card.querySelector('.community-title').textContent.trim();
+    const joinBtn = card.querySelector('.join-bar');
+
+    joinBtn.addEventListener('click', function () {
+      if (joinBtn.textContent.trim().toLowerCase() === 'join') {
+        joinBtn.textContent = 'View';
+        joinBtn.classList.add('joined');
+      } else if (joinBtn.textContent.trim().toLowerCase() === 'view') {
+        if (title === "Kata Bijak") {
+          window.location.href = "katabijak.html";
+        } else {
+          alert(`Belum ada halaman untuk komunitas "${title}"`);
         }
-      });
+      }
     });
-  </script>
+  });
+</script>
+
 </body>
 </html>

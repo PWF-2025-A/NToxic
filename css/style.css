@@ -1,29 +1,41 @@
+/* ========== RESET DAN DASAR ========== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
-  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
   background-color: #f4f4f4;
 }
+
+
+/* ========== LAYOUT UTAMA ========== */
 .container {
   display: flex;
   height: 100vh;
   overflow: hidden;
 }
+
+
+/* ========== SIDEBAR ========== */
 .sidebar {
   width: 200px;
   background: #fff;
   padding: 20px 0;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
 }
+
 .sidebar .logo {
   font-size: 20px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 2rem;
 }
+
 .sidebar .nav a {
   display: block;
   padding: 10px 20px;
@@ -31,15 +43,13 @@ body {
   text-decoration: none;
   font-size: 16px;
 }
+
 .sidebar .nav a:hover {
   background: #f0f0f0;
 }
-.main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-}
+
+
+/* ========== TOPBAR ========== */
 .topbar {
   background: #fff;
   padding: 15px;
@@ -48,18 +58,30 @@ body {
   align-items: center;
   border-bottom: 1px solid #ddd;
 }
+
 .search {
   width: 60%;
   padding: 10px;
   border-radius: 20px;
   border: 1px solid #ccc;
 }
+
 .top-icons i {
   margin-left: 15px;
   font-size: 18px;
 }
 
-/* POST BOX */
+
+/* ========== KONTEN UTAMA ========== */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+
+/* ========== POST BOX ========== */
 .post-box {
   background: #fff;
   margin: 20px;
@@ -69,11 +91,13 @@ body {
   flex-direction: column;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
+
 .post-input {
   display: flex;
   align-items: flex-start;
   gap: 15px;
 }
+
 .post-input .avatar {
   width: 45px;
   height: 45px;
@@ -81,6 +105,7 @@ body {
   border: 1px solid #ccc;
   object-fit: cover;
 }
+
 .post-input textarea {
   flex: 1;
   resize: none;
@@ -93,17 +118,20 @@ body {
   font-family: inherit;
   outline: none;
 }
+
 .post-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
 }
+
 .post-actions .icons i {
   font-size: 18px;
   margin-right: 10px;
   cursor: pointer;
 }
+
 .post-actions button {
   padding: 8px 20px;
   background: #2c2c74;
@@ -114,10 +142,12 @@ body {
   cursor: pointer;
 }
 
-/* FEED POST */
+
+/* ========== FEED POST ========== */
 .feed {
   padding: 0 20px 20px;
 }
+
 .post {
   background: #fff;
   margin-top: 15px;
@@ -125,49 +155,53 @@ body {
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
+
 .user-info {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 8px;
 }
+
 .avatar-mini {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
 }
+
 .user-meta {
   display: flex;
   flex-direction: column;
 }
+
 .user-meta span {
   font-size: 12px;
   color: gray;
 }
+
 .post-footer {
   margin-top: 10px;
 }
+
 .post-footer i {
   margin-right: 15px;
   cursor: pointer;
   font-size: 18px;
 }
 
-/* LIKE BUTTON EFFECT */
+
+/* ========== TOMBOL LIKE ========== */
 .like-btn.liked {
   color: red;
 }
 
-/* LIKE ACTIVE */
-.like-btn.liked {
-  color: red;
-}
 
-/* KOMENTAR */
+/* ========== KOMENTAR ========== */
 .comment-section {
   margin-top: 10px;
 }
+
 .comment-input {
   width: 100%;
   padding: 8px;
@@ -176,6 +210,7 @@ body {
   margin-bottom: 10px;
   font-size: 14px;
 }
+
 .comments-list .comment {
   background: #f1f1f1;
   padding: 8px 12px;
@@ -184,21 +219,8 @@ body {
   font-size: 13px;
 }
 
-/* ===== Font ===== */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Inter', sans-serif;
-  background-color: #f4f4f4;
-}
 
-/* ===== Layout Container ===== */
-.container {
-  display: flex;
-  height: 100vh;
-}
-
-/* ===== Left Side (Gambar + Quote) ===== */
+/* ========== HALAMAN LOGIN/REGISTER ========== */
 .left-side {
   flex: 1;
   background-image: url('asets/people.jpg');
@@ -218,7 +240,6 @@ body {
   font-weight: 600;
 }
 
-/* ===== Right Side (Form Login/Register) ===== */
 .right-side {
   flex: 1;
   background-color: white;
@@ -245,7 +266,6 @@ body {
   margin-bottom: 20px;
 }
 
-/* ===== Form ===== */
 .form-container input {
   margin-bottom: 10px;
   padding: 10px;
@@ -275,7 +295,6 @@ body {
   background-color: #333;
 }
 
-/* ===== Toggle Login/Register ===== */
 .form-toggle {
   margin-top: 10px;
   font-size: 14px;
@@ -291,14 +310,85 @@ body {
   display: none;
 }
 
-/* Tombol logout mini */
+
+/* ========== TOMBOL TAMBAHAN ========== */
 .btn-logout-mini {
   padding: 5px 5px;
   font-size: 10px;
   border-radius: 50px;
 }
 
-/* Responsive (optional) */
+
+/* ========== HALAMAN KOMUNITAS ========== */
+.space-section {
+  padding: 30px;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.create-button-wrapper {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.create-button {
+  background: #00bfff;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.create-button:hover {
+  background: #009edb;
+}
+
+.community-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  transition: border 0.3s;
+}
+
+.community-card.active {
+  border: 2px solid #00b4ff;
+}
+
+.community-title {
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+.community-members {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.join-bar {
+  background: #dcdcdc;
+  padding: 8px;
+  text-align: center;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.join-bar:hover {
+  background: #c0c0c0;
+}
+
+
+/* ========== RESPONSIF ========== */
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
@@ -313,77 +403,4 @@ body {
     font-size: 20px;
     left: 5%;
   }
-}
-
-/* Container untuk konten utama halaman space */
-.space-section {
-  padding: 30px;
-  background-color: #f9f9f9;
-  min-height: 100vh;
-  box-sizing: border-box;
-}
-
-/* Pembungkus tombol agar tetap di kanan dan tidak bertabrakan */
-.create-button-wrapper {
-  text-align: right;
-  margin-bottom: 20px;
-}
-
-/* Tombol "Buat komunitas baru" */
-.create-button {
-  background: #00bfff;
-  color: white;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-.create-button:hover {
-  background: #009edb;
-}
-
-/* Kartu komunitas */
-.community-card {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 16px 20px;
-  margin-bottom: 20px;
-  background-color: #fff;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  transition: border 0.3s;
-}
-
-/* Jika sedang dipilih/aktif */
-.community-card.active {
-  border: 2px solid #00b4ff;
-}
-
-/* Judul komunitas */
-.community-title {
-  font-weight: bold;
-  font-size: 1.3rem;
-  margin-bottom: 8px;
-}
-
-/* Jumlah member */
-.community-members {
-  font-size: 0.95rem;
-  color: #555;
-  margin-bottom: 10px;
-}
-
-/* Bar Join */
-.join-bar {
-  background: #dcdcdc;
-  padding: 8px;
-  text-align: center;
-  border-radius: 4px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-.join-bar:hover {
-  background: #c0c0c0;
 }

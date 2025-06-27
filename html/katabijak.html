@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kata Bijak - N'TOX!C</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/katabijak.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script>
+    if (sessionStorage.getItem("loggedIn") !== "true") {
+      window.location.href = "index.html";
+    }
+  </script>
+</head>
+<body>
+  <main class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button onclick="goBack()" class="btn btn-back">
+          <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <h2>Kata Bijak</h2>
+      </div>
+      <div class="top-icons">
+        <span id="userGreeting" style="font-weight: bold;"></span>
+        <button onclick="logout()" class="btn btn-black btn-logout-mini">Logout</button>
+      </div>
+    </header>
+
+    <section class="post-section">
+      <div class="post-box">
+        <div class="post-user">
+          <div class="logo">N'<span>🧠</span>TOX!C.</div>
+          <span class="post-time">• 2 jam yang lalu</span>
+        </div>
+        <div class="post-media">
+          <img src="/asets/N'TOXIC HD.png" alt="Kata Bijak 1" />
+        </div>
+      </div>
+
+      <div class="post-box">
+        <div class="post-user">
+          <div class="logo">N'<span>🧠</span>TOX!C.</div>
+          <span class="post-time">• 4 jam yang lalu</span>
+        </div>
+        <div class="post-media">
+          <video controls>
+            <source src="/assets/videos/motivasi1.mp4" type="video/mp4" />
+            Browser Anda tidak mendukung video.
+          </video>
+        </div>
+      </div>
+
+      <div class="post-box">
+        <div class="post-user">
+          <div class="logo">N'<span>🧠</span>TOX!C.</div>
+          <span class="post-time">• kemarin</span>
+        </div>
+        <div class="post-media">
+          <img src="/asets/tipsharian.png" alt="Kata Bijak 2" />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById("userGreeting").textContent = `Hello, ${sessionStorage.getItem("username") || 'User'}`;
+
+    function logout() {
+      sessionStorage.clear();
+      window.location.href = "index.html";
+    }
+
+    function goBack() {
+      window.location.href = "space.html";
+    }
+  </script>
+</body>
+</html>

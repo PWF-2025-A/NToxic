@@ -6,6 +6,7 @@
   <title>Dashboard N'TOX!C</title>
   <link rel="stylesheet" href="/css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
     if (sessionStorage.getItem("loggedIn") !== "true") {
       window.location.href = "index.html";
@@ -22,10 +23,10 @@
         <a href="space.html"><i class="fas fa-rocket"></i> Space</a>
         <a href="#"><i class="fas fa-history"></i> History</a>
         <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
-        <a href="#"><i class="fas fa-cog"></i> Setting</a>
-        <a href="#"><i class="fas fa-ellipsis-h"></i> Other</a>
+        <a href="setting.html"><i class="fas fa-cog"></i> Setting</a>
       </nav>
     </aside>
+
     <main class="main-content">
       <header class="topbar">
         <input type="text" placeholder="Cari..." class="search" />
@@ -40,7 +41,6 @@
           <img src="/asets/ijam.jpg" alt="Profile" class="avatar" />
           <textarea id="postContent" placeholder="Dengan Kamu cerita..."></textarea>
         </div>
-        <!-- Preview Gambar -->
         <div id="imagePreviewContainer" style="margin-top:10px; display:none;">
           <img id="imagePreview" src="" alt="Preview" style="max-width: 200px; border-radius: 10px; border: 1px solid #ccc;">
         </div>
@@ -56,7 +56,7 @@
       </section>
 
       <section class="feed" id="feed">
-        <!-- Post 1 -->
+        <!-- Post Contoh 1 -->
         <div class="post">
           <div class="user-info">
             <img src="/asets/ijam.jpg" class="avatar-mini" />
@@ -69,6 +69,7 @@
             <i class="far fa-heart like-btn"></i>
             <i class="fas fa-comment comment-btn"></i>
             <i class="fas fa-share"></i>
+            <i class="fas fa-trash delete-btn" style="color: crimson; cursor: pointer;" title="Hapus post"></i>
           </div>
           <div class="comment-section" style="display: none;">
             <input type="text" class="comment-input" placeholder="Tulis komentar..." />
@@ -76,7 +77,7 @@
           </div>
         </div>
 
-        <!-- Post 2 -->
+        <!-- Post Contoh 2 -->
         <div class="post">
           <div class="user-info">
             <img src="/asets/ijam.jpg" class="avatar-mini" />
@@ -89,6 +90,7 @@
             <i class="far fa-heart like-btn"></i>
             <i class="fas fa-comment comment-btn"></i>
             <i class="fas fa-share"></i>
+            <i class="fas fa-trash delete-btn" style="color: crimson; cursor: pointer;" title="Hapus post"></i>
           </div>
           <div class="comment-section" style="display: none;">
             <input type="text" class="comment-input" placeholder="Tulis komentar..." />
@@ -99,6 +101,7 @@
     </main>
   </div>
 
+  <!-- JS Script -->
   <script>
     const postBtn = document.getElementById('postBtn');
     const postContent = document.getElementById('postContent');
@@ -107,6 +110,7 @@
     const imageInput = document.getElementById('imageInput');
     const imagePreview = document.getElementById('imagePreview');
     const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+    const searchInput = document.querySelector('.search');
 
     let selectedImageBase64 = null;
 
@@ -128,6 +132,7 @@
     postBtn.addEventListener('click', () => {
       const content = postContent.value.trim();
       if (!content && !selectedImageBase64) return;
+
       const username = sessionStorage.getItem("username") || "Anonim";
 
       const post = document.createElement('div');
@@ -148,9 +153,10 @@
           <i class="far fa-heart like-btn"></i>
           <i class="fas fa-comment comment-btn"></i>
           <i class="fas fa-share"></i>
+          <i class="fas fa-trash delete-btn" style="color: crimson; cursor: pointer;" title="Hapus post"></i>
         </div>
         <div class="comment-section" style="display: none;">
-          <input type="text" class="comment-input" placeholder="Tulis komentar..."/>
+          <input type="text" class="comment-input" placeholder="Tulis komentar..." />
           <div class="comments-list"></div>
         </div>`;
 
@@ -163,18 +169,23 @@
       setupPostListeners(post);
     });
 
+    function setupLikeButton(btn) {
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('liked');
+        btn.classList.toggle('fas');
+        btn.classList.toggle('far');
+      });
+    }
+
     function setupPostListeners(post) {
       const likeBtn = post.querySelector('.like-btn');
       const commentBtn = post.querySelector('.comment-btn');
       const commentSection = post.querySelector('.comment-section');
       const commentInput = post.querySelector('.comment-input');
       const commentsList = post.querySelector('.comments-list');
+      const deleteBtn = post.querySelector('.delete-btn');
 
-      likeBtn.addEventListener('click', () => {
-        likeBtn.classList.toggle('liked');
-        likeBtn.classList.toggle('fas');
-        likeBtn.classList.toggle('far');
-      });
+      setupLikeButton(likeBtn);
 
       commentBtn.addEventListener('click', () => {
         commentSection.style.display = commentSection.style.display === 'none' ? 'block' : 'none';
@@ -184,12 +195,43 @@
         if (e.key === 'Enter' && commentInput.value.trim()) {
           const comment = document.createElement('div');
           comment.className = 'comment';
-          comment.textContent = commentInput.value.trim();
+          comment.innerHTML = `<strong>${sessionStorage.getItem("username") || "User"}:</strong> ${commentInput.value.trim()}`;
           commentsList.appendChild(comment);
           commentInput.value = '';
+          commentInput.style.display = 'none';
         }
       });
+
+      deleteBtn.addEventListener('click', () => {
+        Swal.fire({
+          title: 'Yakin ingin menghapus post ini?',
+          text: "Tindakan ini tidak dapat dibatalkan!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#aaa',
+          confirmButtonText: 'Ya, hapus!',
+          cancelButtonText: 'Batal'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            post.remove();
+            Swal.fire('Terhapus!', 'Post telah dihapus.', 'success');
+          }
+        });
+      });
     }
+
+    document.querySelectorAll('.post').forEach(setupPostListeners);
+
+    searchInput.addEventListener('input', () => {
+      const keyword = searchInput.value.toLowerCase();
+      const posts = document.querySelectorAll('.post');
+      posts.forEach(post => {
+        const content = post.querySelector('p')?.textContent?.toLowerCase() || "";
+        const user = post.querySelector('.user-meta strong')?.textContent?.toLowerCase() || "";
+        post.style.display = (content.includes(keyword) || user.includes(keyword)) ? 'block' : 'none';
+      });
+    });
 
     document.getElementById("userGreeting").textContent = `Hello, ${sessionStorage.getItem("username") || 'User'}`;
 

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edit Profil - N'TOX!C</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/edit-profile.css" />
+</head>
+<body>
+  <div class="edit-container">
+    <h2>Edit Profil</h2>
+    <form id="editProfileForm">
+      <div class="form-group">
+        <label for="editName">Nama</label>
+        <input type="text" id="editName" placeholder="Nama lengkap">
+      </div>
+      <div class="form-group">
+        <label for="editBio">Bio</label>
+        <textarea id="editBio" placeholder="Ceritakan tentang dirimu..."></textarea>
+      </div>
+      <div class="form-group">
+        <label for="editEmail">Email</label>
+        <input type="email" id="editEmail" placeholder="Email aktif">
+      </div>
+      <div class="form-group">
+        <label for="editBirth">Tanggal Lahir</label>
+        <input type="date" id="editBirth">
+      </div>
+      <div class="form-group">
+        <label for="editLocation">Lokasi</label>
+        <input type="text" id="editLocation" placeholder="Contoh: Jakarta">
+      </div>
+      <div class="form-group">
+        <label for="editStatus">Status</label>
+        <select id="editStatus">
+          <option value="Aktif">Aktif</option>
+          <option value="Tidak Aktif">Tidak Aktif</option>
+          <option value="Cuti">Cuti</option>
+        </select>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="save-btn">💾 Simpan</button>
+        <a href="profile.html" class="cancel-btn">❌ Batal</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const nameInput = document.getElementById("editName");
+    const usernameInput = document.getElementById("editUsername");
+    const bioInput = document.getElementById("editBio");
+    const emailInput = document.getElementById("editEmail");
+    const birthInput = document.getElementById("editBirth");
+    const locationInput = document.getElementById("editLocation");
+    const statusInput = document.getElementById("editStatus");
+
+    window.onload = function () {
+      nameInput.value = sessionStorage.getItem("username") || "";
+      usernameInput.value = sessionStorage.getItem("username") || "";
+      bioInput.value = sessionStorage.getItem("bio") || "";
+      emailInput.value = sessionStorage.getItem("email") || "";
+      birthInput.value = sessionStorage.getItem("birth") || "";
+      locationInput.value = sessionStorage.getItem("location") || "";
+      statusInput.value = sessionStorage.getItem("status") || "Aktif";
+    };
+
+    document.getElementById("editProfileForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      sessionStorage.setItem("username", nameInput.value);
+      sessionStorage.setItem("bio", bioInput.value);
+      sessionStorage.setItem("email", emailInput.value);
+      sessionStorage.setItem("birth", birthInput.value);
+      sessionStorage.setItem("location", locationInput.value);
+      sessionStorage.setItem("status", statusInput.value);
+      window.location.href = "profile.html";
+    });
+  </script>
+</body>
+</html>
